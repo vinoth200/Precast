@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- YouTube or Website - CodingLab -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Precast Website</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <!--Alertify CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+  </head>
+  <body>
+    <nav class="sidebar close">
+      <a href="{% url 'home' %}" class="logo">Companyname</a>
+      <div class="menu-content">
+        <ul class="menu-items">
+          <div class="menu-title">Project List</div>
+          {% for item in project %}
+          <li class="">
+            <div class="submenu-item">
+              <a data-project-id="{{ item.id }}" class="project-link">{{item.project_name}}</a>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+            <ul class="menu-items submenu">
+              <div class="menu-title">
+                <i class="fa-solid fa-chevron-left"></i>
+                {{item.project_name}}
+              </div>
+              <li class="item subitem">
+                <i>{{ item.project_location }}</i>
+              </li>
+            </ul>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+    
+    <nav class="navbar ">
+      <i class="fa-solid fa-bars" id="sidebar-close"></i>
+      <div class="navbar-text"> Live Precast Status</div>
+      <ul class="navbar-nav ms-auto">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+              <a class="nav-link" style="text-decoration: none;" aria-current="page"><i class="fa fa-user"></i> {{ request.user }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="text-decoration: none;" aria-current="page" href="{% url 'logout_page' %}"><i class="fa fa-sign-out"></i>Logout</a>
+          </li>
+          {% endif %}
+      </ul> 
+   </nav>
+  
+
+    <main class="main">
+      <div class="card-container precast-container">  
+      </div>
+      
+      <!--Right card-->
+      <div class="right-card">
+        <div class="card1">
+          <h4>Precast Status</h4>
+          <div class="category">
+            <div class='box yellow'></div>
+            <div>Yet to Start</div>
+          </div>
+          <div class="category">
+            <div class='box green'></div>
+            <div>Design Done</div>
+          </div>
+          <div class="category">
+            <div class='box orange'></div>
+            <div>Precast Done</div>
+          </div>
+          <div class="category">
+            <div class='box brown'></div>
+            <div>Moving to Site</div>
+          </div>
+          <div class="category">
+            <div class='box purple'></div>
+            <div>Moved to Site</div>
+          </div>
+          <div class="category">
+            <div class='box red'></div>
+            <div>Fixed on Site</div>
+          </div>
+          <div class="category">
+            <div class='box navy'></div>
+            <div>Completed</div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+        <!-- Alertify  JavaScript -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <script> 
+            alertify.set('notifier','position', 'top-right');
+            {% for msg in messages  %}
+            alertify.success('{{ msg }}');
+            {% endfor %}
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>

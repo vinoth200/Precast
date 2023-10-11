@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <!--Google Fonts Link-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,200,0,0" />
+    
+    <link rel="stylesheet" href="{% static 'css/login.css' %}"/>
+
+    <!--Alertify CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme Alertify -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+</head>
+<body>
+    <div class="login-card-container">
+        <div class="login-card">
+            <div class="login-card-logo">
+                <img src="#" alt="logo">
+            </div>
+            <div class="login-card-header">
+                <h1>Sign In</h1>
+                <div>Sign In to use platform</div>
+            </div>
+            <form action="" class="login-card-form" method="POST">
+                {% csrf_token %}
+                 <!--Username-->
+                <div class="form-item ">
+                    <span class="form-item-icon material-symbols-rounded">person</span>
+                    <input type="text" placeholder="Enter Username" name="username" class="form-control" id="usernameField" required autofocus {{form.username}}
+                    <label style=" color: red;font-size: 10px;">{{ form.errors.username }}</label> 
+                </div>
+                <div class="invalid-feedback" style="display: none; color: red ;font-size :10px;"></div>
+                <!--Email-->
+                <div class="form-item">
+                    <span class="form-item-icon material-symbols-rounded">mail</span>
+                    <input type="text" placeholder="Enter Email" name="email" class="form-control" id="emailField" required autofocus {{form.email}}
+                    <label style=" color: red;font-size: 10px;">{{ form.errors.email }}</label> 
+                </div>
+                <div class="emailFeedBackArea invalid-feedback" style="display: none; color: red ;font-size :10px;"></div>
+                <!--Password1-->
+                <div class="form-item">
+                    <span class="form-item-icon material-symbols-rounded">lock</span>
+                    <input type="password" placeholder="Enter Password" name="password1" class="form-control" id="password1" required {{form.password1}}
+                    <label style=" color: red;font-size: 10px;">{{ form.errors.password1 }}</label> 
+                </div>
+                <!--Password2-->
+                <div class="form-item">
+                    <span class="form-item-icon material-symbols-rounded">lock</span>
+                    <input type="password" placeholder="Confirm Password" name="password2" class="form-control" id="password2" required {{form.password2}} 
+                    {% if form.errors.password2 %}
+                    <label style=" color: red;font-size: 10px;">{{ form.errors.password2 }}</label>
+                    {% endif %}
+                </div>
+                <div class="passwordFeedbackArea invalid-feedback" style="display: none; color: red; font-size: 10px;"></div>
+                <button type="submit" value="register">Sign In</button>
+            </form>
+            <div class="login-card-footer">
+                Already have an account? <a href="{% url 'login_page' %}">Login existing account</a>
+            </div>
+        </div>
+    </div>
+    <!-- Alertify  JavaScript -->
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script> 
+        alertify.set('notifier','position', 'top-right');
+        {% for msg in messages  %}
+        alertify.success('{{ msg }}');
+        {% endfor %}
+    </script>
+    
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>
