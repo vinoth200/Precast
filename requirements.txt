@@ -45,7 +45,7 @@ mrio-common-metadata==0.2.1
 mysqlclient==2.1.1
 packaging==23.2
 pandas==1.3.5
-Pillow==10.0.1
+Pillow==9.5.0
 pytz==2023.3.post1
 sqlparse==0.4.4
 typing_extensions==4.8.0
