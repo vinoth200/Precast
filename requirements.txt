@@ -34,7 +34,7 @@ idna==3.4
 ijson==3.2.3
 isodate==0.6.1
 jmespath==1.0.1
-jsonlines==4.0.0
+jsonlines==3.1.0
 jsonpointer==2.4
 jsonschema==4.19.1
 jsonschema-specifications==2023.7.1
