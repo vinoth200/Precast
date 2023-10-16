@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6vcji2rsn1xvv%$47z5+h+t*+ly7tf*8a&647m$ij4b3gxz=cs'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG','True'=="True")
 
 ALLOWED_HOSTS = [ '127.0.0.1', 'localhost',"precast-01.onrender.com"]
 
@@ -78,14 +79,18 @@ WSGI_APPLICATION = 'pro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if not DEBUG:
+    DATABASE ={
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+else:
+    DATABASES = {
+        'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_test',
         'HOST': 'localhost',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
         'PORT':'3306',
     }
 }
